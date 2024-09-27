@@ -57,13 +57,27 @@ public class Article {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(id, article.id);
+        if (!(o instanceof Article that)) return false;
+
+        if(this.getId() != null) { // id가 영속화가 된 경우
+            return Objects.equals(this.getId(),that.getId());
+        } else { // 영속화하지 않은 데이터도 처리 하기위해서 분기 처리
+            return Objects.equals(this.getTitle(), that.getTitle()) &&
+                    Objects.equals(this.getContent(), that.getContent()) &&
+                    Objects.equals(this.getHashtag(), that.getHashtag()) &&
+                    Objects.equals(this.getCreatedAt(), that.getCreatedAt()) &&
+                    Objects.equals(this.getCreatedBy(), that.getCreatedBy()) &&
+                    Objects.equals(this.getModifiedAt(), that.getModifiedAt()) &&
+                    Objects.equals(this.getModifiedBy(), that.getModifiedBy());
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        if(this.getId() != null) {
+            return Objects.hash(getId());
+        }else {
+            return Objects.hash(getTitle(), getContent(), getHashtag(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+        }
     }
 }
