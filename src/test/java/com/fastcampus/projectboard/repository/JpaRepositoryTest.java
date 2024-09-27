@@ -78,10 +78,10 @@ class JpaRepositoryTest {
         long previousArticleCount = articleRepository.count();
 
         // When
+        articleCommentRepository.deleteByArticle(article);
         articleRepository.delete(article);
 
         // Then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
     }
-
 }
