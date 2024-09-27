@@ -50,6 +50,7 @@ class JpaRepositoryTest {
 
         // When
         Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
+        System.out.println("savedArticle = " + savedArticle);
 
         // Then
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
@@ -65,6 +66,8 @@ class JpaRepositoryTest {
 
         // When
         Article savedArticle = articleRepository.saveAndFlush(article);
+        System.out.println("savedArticle.getModifiedAt() = " + savedArticle.getModifiedAt());
+        
 
         // Then
         assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
@@ -76,6 +79,8 @@ class JpaRepositoryTest {
         // Given
         Article article = articleRepository.findById(1L).orElseThrow();
         long previousArticleCount = articleRepository.count();
+        long previousArticleCommentCount = articleCommentRepository.count();
+        long deletedCommentsSize = articleCommentRepository.countByArticle(article);
 
         // When
         articleCommentRepository.deleteByArticle(article);
@@ -83,5 +88,6 @@ class JpaRepositoryTest {
 
         // Then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount - 1);
+        assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - deletedCommentsSize);
     }
 }
