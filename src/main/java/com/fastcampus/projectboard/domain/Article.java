@@ -40,7 +40,7 @@ public class Article {
 
     protected Article() {}
 
-    public Article(String title, String content, String hashtag) {
+    private Article(String title, String content, String hashtag) {
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;

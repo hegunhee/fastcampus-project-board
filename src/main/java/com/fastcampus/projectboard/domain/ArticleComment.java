@@ -34,7 +34,7 @@ public class ArticleComment {
 
     protected ArticleComment() {}
 
-    public ArticleComment(Article article, String content) {
+    private ArticleComment(Article article, String content) {
         this.article = article;
         this.content = content;
     }
