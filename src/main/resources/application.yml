@@ -14,7 +14,6 @@ spring:
     password: '0072'
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
     show-sql: true
