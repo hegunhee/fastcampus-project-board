@@ -5,8 +5,11 @@ import com.fastcampus.projectboard.domain.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("JPA 연결 테스트")
 @Import(JpaConfig.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class JpaRepositoryTest {
 
     private final ArticleRepository articleRepository;
@@ -66,8 +70,6 @@ class JpaRepositoryTest {
 
         // When
         Article savedArticle = articleRepository.saveAndFlush(article);
-        System.out.println("savedArticle.getModifiedAt() = " + savedArticle.getModifiedAt());
-        
 
         // Then
         assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
@@ -80,10 +82,9 @@ class JpaRepositoryTest {
         Article article = articleRepository.findById(1L).orElseThrow();
         long previousArticleCount = articleRepository.count();
         long previousArticleCommentCount = articleCommentRepository.count();
-        long deletedCommentsSize = articleCommentRepository.countByArticle(article);
+        int deletedCommentsSize = article.getArticleComments().size();
 
         // When
-        articleCommentRepository.deleteByArticle(article);
         articleRepository.delete(article);
 
         // Then
