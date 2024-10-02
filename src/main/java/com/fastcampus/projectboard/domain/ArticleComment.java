@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "content"),
         @Index(columnList = "createdAt"),
@@ -25,6 +25,8 @@ public class ArticleComment extends AuditingFields{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(optional = false) private Article article;
+    @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
+
     @Column(nullable = false,length = 500) private String content;
 
     protected ArticleComment() {}
@@ -36,6 +38,10 @@ public class ArticleComment extends AuditingFields{
 
     public static ArticleComment of(Article article, String content) {
         return new ArticleComment(article,content);
+    }
+
+    public void updateUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     @Override
