@@ -3,18 +3,14 @@ package com.fastcampus.projectboard.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Index;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -26,6 +22,7 @@ import java.util.Objects;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class UserAccount {
 
@@ -55,10 +52,23 @@ public class UserAccount {
         this.nickname = nickname;
         this.memo = memo;
     }
+//
+//    private UserAccount(String userLogin, String userPassword, String email, String nickname, String memo,LocalDateTime createdAt) {
+//        this.userLogin = userLogin;
+//        this.userPassword = userPassword;
+//        this.email = email;
+//        this.nickname = nickname;
+//        this.memo = memo;
+//        this.createdAt = createdAt;
+//    }
 
     public static UserAccount of(String userLogin, String userPassword, String email, String nickname, String memo) {
         return new UserAccount(userLogin, userPassword, email, nickname, memo);
     }
+//
+//    public static UserAccount createUserAccountWithCreatedAt(String userLogin, String userPassword, String email, String nickname, String memo,LocalDateTime createdAt) {
+//        return new UserAccount(userLogin, userPassword, email, nickname, memo,createdAt);
+//    }
 
 
     @Override
