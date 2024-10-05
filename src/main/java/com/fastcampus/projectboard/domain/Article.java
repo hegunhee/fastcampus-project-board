@@ -48,10 +48,6 @@ public class Article extends AuditingFields{
         return new Article(userAccount, title,content, hashtag);
     }
 
-    public void updateUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
-
     public void updateHashtag(String hashtag) {
         this.hashtag = hashtag;
     }
