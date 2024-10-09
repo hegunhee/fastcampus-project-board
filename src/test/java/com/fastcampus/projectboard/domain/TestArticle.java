@@ -34,10 +34,7 @@ public class TestArticle extends AuditingFields {
         return Objects.equals(this.getTitle(), that.getTitle()) &&
                 Objects.equals(this.getContent(), that.getContent()) &&
                 Objects.equals(this.getHashtag(), that.getHashtag()) &&
-                Objects.equals(this.getCreatedAt(), that.getCreatedAt()) &&
-                Objects.equals(this.getCreatedBy(), that.getCreatedBy()) &&
-                Objects.equals(this.getModifiedAt(), that.getModifiedAt()) &&
-                Objects.equals(this.getModifiedBy(), that.getModifiedBy());
+                super.equals(that);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class TestArticle extends AuditingFields {
     }
 
     public int nestedHashcode() {
-        return Objects.hash(getTitle(),getContent(),getHashtag(),super.hashCode());
+        return Objects.hash(getTitle(), getContent(), getHashtag(), super.hashCode());
     }
 
     @Override
