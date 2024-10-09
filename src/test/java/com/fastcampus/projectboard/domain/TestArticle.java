@@ -42,7 +42,11 @@ public class TestArticle extends AuditingFields {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getContent(), getHashtag(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+        return Objects.hash(getTitle(), getContent(), getHashtag()) + super.hashCode();
+    }
+
+    public int nestedHashcode() {
+        return Objects.hash(getTitle(),getContent(),getHashtag(),super.hashCode());
     }
 
     @Override
