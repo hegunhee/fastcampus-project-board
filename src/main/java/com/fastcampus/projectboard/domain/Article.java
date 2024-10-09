@@ -70,7 +70,7 @@ public class Article extends AuditingFields {
         if(this.getId() != null) {
             return Objects.hash(getId());
         }else {
-            return Objects.hash(getTitle(), getContent(), getHashtag(),super.hashCode());
+            return Objects.hash(getTitle(), getContent(), getHashtag(), super.hashCode());
         }
     }
 }
