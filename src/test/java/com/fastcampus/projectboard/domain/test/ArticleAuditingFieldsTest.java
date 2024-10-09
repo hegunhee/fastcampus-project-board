@@ -40,6 +40,7 @@ public class ArticleAuditingFieldsTest {
         // given
         TestArticle testArticle1 = getTestArticleDiff(1);
         TestArticle testArticle2 = getTestArticleDiff(1);
+
         // when
 
         // then
@@ -58,6 +59,22 @@ public class ArticleAuditingFieldsTest {
         // then
         assertThat(testArticle1).isNotEqualTo(testArticle2);
         assertThat(testArticle1.hashCode()).isNotEqualTo(testArticle2.hashCode());
+    }
+
+    @DisplayName("내부적으로 hashcode를 두번 호출하는 메서드 테스트")
+    @Test
+    void givenTestArticle_whenCalculateHashcode_thenDiffHashcode() {
+        // given
+        TestArticle testArticle1 = getTestArticleDiff(1);
+
+        // when
+        int hashcode = testArticle1.hashCode();
+        int nestedHashcode = testArticle1.nestedHashcode();
+
+        // then
+        System.out.println("hashcode = " + hashcode);
+        System.out.println("nestedHashcode = " + nestedHashcode);
+        assertThat(hashcode).isNotEqualTo(nestedHashcode);
     }
 
     private List<TestArticle> getDiffFiveArticles() {
