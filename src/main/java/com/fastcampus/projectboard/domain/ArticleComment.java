@@ -35,19 +35,29 @@ public class ArticleComment extends AuditingFields{
     }
 
     public static ArticleComment of(Article article, String content) {
-        return new ArticleComment(article,content);
+        return new ArticleComment(article, content);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ArticleComment articleComment = (ArticleComment) o;
-        return Objects.equals(getId(), articleComment.getId());
+        if (!(o instanceof ArticleComment that)) return false;
+
+        if (this.getId() != null) { // id가 영속화가 된 경우
+            return Objects.equals(this.getId(), that.getId());
+        } else { // 영속화하지 않은 데이터도 처리 하기위해서 분기 처리
+            return Objects.equals(this.getArticle(), that.getArticle()) &&
+                    Objects.equals(this.getContent(), that.getContent()) &&
+                    super.equals(that);
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        if (this.getId() != null) {
+            return Objects.hash(getId());
+        } else {
+            return Objects.hash(getArticle(), getContent()) + super.hashCode();
+        }
     }
 }
