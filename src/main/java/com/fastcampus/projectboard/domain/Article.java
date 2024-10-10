@@ -17,7 +17,7 @@ import java.util.Set;
         @Index(columnList = "createdBy")
 })
 @Entity
-public class Article extends AuditingFields{
+public class Article extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,19 +63,16 @@ public class Article extends AuditingFields{
             return Objects.equals(this.getTitle(), that.getTitle()) &&
                     Objects.equals(this.getContent(), that.getContent()) &&
                     Objects.equals(this.getHashtag(), that.getHashtag()) &&
-                    Objects.equals(this.getCreatedAt(), that.getCreatedAt()) &&
-                    Objects.equals(this.getCreatedBy(), that.getCreatedBy()) &&
-                    Objects.equals(this.getModifiedAt(), that.getModifiedAt()) &&
-                    Objects.equals(this.getModifiedBy(), that.getModifiedBy());
+                    super.equals(that);
         }
     }
 
     @Override
     public int hashCode() {
-        if(this.getId() != null) {
+        if (this.getId() != null) {
             return Objects.hash(getId());
-        }else {
-            return Objects.hash(getTitle(), getContent(), getHashtag(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+        } else {
+            return Objects.hash(getTitle(), getContent(), getHashtag()) + super.hashCode();
         }
     }
 }
