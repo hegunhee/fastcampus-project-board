@@ -41,9 +41,7 @@ public class ArticleAuditingFieldsTest {
         TestArticle testArticle1 = getTestArticleDiff(1);
         TestArticle testArticle2 = getTestArticleDiff(1);
 
-        // when
-
-        // then
+        // when & then
         assertThat(testArticle1).isEqualTo(testArticle2);
         assertThat(testArticle1.hashCode()).isEqualTo(testArticle2.hashCode());
     }
