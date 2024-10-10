@@ -3,10 +3,6 @@ package com.fastcampus.projectboard.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -15,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Index;
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -27,7 +22,7 @@ import java.util.Objects;
         @Index(columnList = "createdBy")
 })
 @Entity
-public class UserAccount {
+public class UserAccount extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,12 +34,6 @@ public class UserAccount {
     @Setter private String email;
     @Setter private String nickname;
     @Setter private String memo;
-
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
-    @CreatedBy @Column(nullable = false) private String createdBy;
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;
-    @LastModifiedBy @Column(nullable = false) private String modifiedBy;
-
 
     protected UserAccount() {}
 
@@ -59,7 +48,6 @@ public class UserAccount {
     public static UserAccount of(String userLogin, String userPassword, String email, String nickname, String memo) {
         return new UserAccount(userLogin, userPassword, email, nickname, memo);
     }
-
 
     @Override
     public boolean equals(Object o) {
