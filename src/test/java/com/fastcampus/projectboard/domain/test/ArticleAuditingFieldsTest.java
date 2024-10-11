@@ -1,7 +1,6 @@
 package com.fastcampus.projectboard.domain.test;
 
 import com.fastcampus.projectboard.domain.TestArticle;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("[AuditingField] AuditingFields equals hashcode 메서드 테스트")
 public class ArticleAuditingFieldsTest {
 
-    private LocalDateTime now;
-
-    @BeforeEach
-    void timeInit() {
-        now = LocalDateTime.now();
-    }
+    private final LocalDateTime now = LocalDateTime.now();
 
     @DisplayName("서로다른 5개의 객체 중복 비교")
     @Test
