@@ -33,7 +33,7 @@ public class Article {
 
     @Column(nullable = false) private String title;
     @Column(nullable = false, length = 10000) private String content;
-    private String hashtag;
+    @Setter private String hashtag;
 
     @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;
     @CreatedBy @Column(nullable = false,length = 100) private String createdBy;
@@ -56,10 +56,6 @@ public class Article {
 
     public static Article of(String title, String content, String hashtag) {
         return new Article(title,content, hashtag);
-    }
-
-    public void updateHashtag(String hashtag) {
-        this.hashtag = hashtag;
     }
 
     @Override
