@@ -23,11 +23,12 @@ public class Article extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
 
     @Column(nullable = false) private String title;
     @Column(nullable = false, length = 10000) private String content;
-    private String hashtag;
+    @Setter private String hashtag;
 
     @ToString.Exclude
     @OrderBy("createdAt DESC")
@@ -44,12 +45,9 @@ public class Article extends AuditingFields {
         this.hashtag = hashtag;
     }
 
+  
     public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
         return new Article(userAccount, title,content, hashtag);
-    }
-
-    public void updateHashtag(String hashtag) {
-        this.hashtag = hashtag;
     }
 
     @Override

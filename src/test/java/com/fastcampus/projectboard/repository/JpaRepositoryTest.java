@@ -29,7 +29,7 @@ class JpaRepositoryTest {
         ) {
             super(articleRepository, articleCommentRepository,userAccountRepository);
         }
-
+      
     }
 
     @Nested
@@ -101,8 +101,8 @@ class JpaRepositoryTest {
             // Given
             Article article = articleRepository.findById(1L).orElseThrow();
             String updatedHashtag = "#springboot";
-            article.updateHashtag(updatedHashtag);
-
+            article.setHashtag(updatedHashtag);
+          
             // When
             Article savedArticle = articleRepository.saveAndFlush(article);
 

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Index;
 import javax.persistence.Entity;
+
 import java.util.Objects;
 
 @Getter
@@ -22,6 +23,7 @@ import java.util.Objects;
         @Index(columnList = "createdBy")
 })
 @Entity
+
 public class UserAccount extends AuditingFields {
 
     @Id
@@ -35,6 +37,7 @@ public class UserAccount extends AuditingFields {
     @Setter private String nickname;
     @Setter private String memo;
 
+  
     protected UserAccount() {}
 
     private UserAccount(String userLogin, String userPassword, String email, String nickname, String memo) {
@@ -49,6 +52,7 @@ public class UserAccount extends AuditingFields {
         return new UserAccount(userLogin, userPassword, email, nickname, memo);
     }
 
+  
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
