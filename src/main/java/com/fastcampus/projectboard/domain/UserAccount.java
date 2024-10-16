@@ -49,7 +49,6 @@ public class UserAccount extends AuditingFields {
         return new UserAccount(userLogin, userPassword, email, nickname, memo);
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
