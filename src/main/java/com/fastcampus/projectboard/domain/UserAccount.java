@@ -61,10 +61,7 @@ public class UserAccount extends AuditingFields {
                     Objects.equals(this.getEmail(), that.getEmail()) &&
                     Objects.equals(this.getNickname(), that.getNickname()) &&
                     Objects.equals(this.getMemo(), that.getMemo()) &&
-                    Objects.equals(this.getCreatedAt(), that.getCreatedAt()) &&
-                    Objects.equals(this.getCreatedBy(), that.getCreatedBy()) &&
-                    Objects.equals(this.getModifiedAt(), that.getModifiedAt()) &&
-                    Objects.equals(this.getModifiedBy(), that.getModifiedBy());
+                    super.equals(that);
         }
 
         return Objects.equals(this.getId(), that.getId());
@@ -73,7 +70,7 @@ public class UserAccount extends AuditingFields {
     @Override
     public int hashCode() {
         if (this.getId() == null) {
-            return Objects.hash(getUserLogin(), getUserPassword(), getEmail(), getNickname(), getMemo(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+            return Objects.hash(getUserLogin(), getUserPassword(), getEmail(), getNickname(), getMemo()) + super.hashCode();
         }
 
         return Objects.hash(getId());

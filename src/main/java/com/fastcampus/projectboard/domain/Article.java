@@ -57,20 +57,19 @@ public class Article extends AuditingFields {
         if(this.getId() != null) { // id가 영속화가 된 경우
             return Objects.equals(this.getId(),that.getId());
         } else { // 영속화하지 않은 데이터도 처리 하기위해서 분기 처리
-            AuditingFields thisAuditingField = this;
             return Objects.equals(this.getTitle(), that.getTitle()) &&
                     Objects.equals(this.getContent(), that.getContent()) &&
                     Objects.equals(this.getHashtag(), that.getHashtag()) &&
-                    thisAuditingField.equals(that);
+                    super.equals(that);
         }
     }
 
     @Override
     public int hashCode() {
-        if(this.getId() != null) {
+        if (this.getId() != null) {
             return Objects.hash(getId());
-        }else {
-            return Objects.hash(getTitle(), getContent(), getHashtag(), super.hashCode());
+        } else {
+            return Objects.hash(getTitle(), getContent(), getHashtag()) + super.hashCode();
         }
     }
 }
