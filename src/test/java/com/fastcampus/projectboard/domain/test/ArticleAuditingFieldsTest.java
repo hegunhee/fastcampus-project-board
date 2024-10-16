@@ -6,8 +6,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,14 +26,12 @@ public class ArticleAuditingFieldsTest {
     @DisplayName("서로다른 5개의 객체 중복 비교")
     @Test
     void givenTestArticles_whenDistinct_thenNotDuplication() {
-        // given
-        List<TestArticle> testArticles = getDiffFiveArticles();
-
-        // when
-        List<TestArticle> removeDuplicateData = testArticles.stream().distinct().toList();
+        // given & when
+        int fiveArticlesSize = getDiffFiveArticles().size();
+        Set<TestArticle> testArticles = new HashSet<>(getDiffFiveArticles());
 
         // then
-        assertThat(removeDuplicateData.size()).isEqualTo(testArticles.size());
+        assertThat(fiveArticlesSize).isEqualTo(testArticles.size());
     }
 
     @DisplayName("모든 필드값이 같은 2개의 객체 중복 비교")
@@ -41,9 +41,7 @@ public class ArticleAuditingFieldsTest {
         TestArticle testArticle1 = getTestArticleDiff(1);
         TestArticle testArticle2 = getTestArticleDiff(1);
 
-        // when
-
-        // then
+        // when & then
         assertThat(testArticle1).isEqualTo(testArticle2);
         assertThat(testArticle1.hashCode()).isEqualTo(testArticle2.hashCode());
     }
