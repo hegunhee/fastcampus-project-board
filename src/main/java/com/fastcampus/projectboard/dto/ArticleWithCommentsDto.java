@@ -19,6 +19,11 @@ public record ArticleWithCommentsDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
+
+    public static ArticleWithCommentsDto of(UserAccountDto userAccountDto, Set<ArticleCommentDto> articleCommentDtos, String title, String content, String hashtag) {
+        return new ArticleWithCommentsDto(null, userAccountDto, articleCommentDtos, title, content, hashtag, null, null, null, null);
+    }
+
     public static ArticleWithCommentsDto of(Long id, UserAccountDto userAccountDto, Set<ArticleCommentDto> articleCommentDtos, String title, String content, String hashtag, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         return new ArticleWithCommentsDto(id, userAccountDto, articleCommentDtos, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy);
     }
