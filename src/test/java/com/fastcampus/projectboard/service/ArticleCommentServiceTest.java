@@ -23,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 
-@Disabled("추후 해당 기능을 구현합니다. - 아직 미구현")
 @DisplayName("[Service] 댓글 서비스 테스트")
 @ExtendWith(MockitoExtension.class)
 public class ArticleCommentServiceTest {
@@ -85,6 +84,7 @@ public class ArticleCommentServiceTest {
         then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
+    @Disabled("댓글 기능이 추가되면 활성화되는 테스트 - 현재 비즈니스 로직만 보여주고 있음")
     @DisplayName("댓글 정보를 입력하면, 댓글을 수정한다.")
     @Test
     void givenArticleCommentInfo_whenUpdatingArticleComment_thenUpdatesArticleComment() {
@@ -105,6 +105,7 @@ public class ArticleCommentServiceTest {
         then(articleCommentRepository).should().getReferenceById(dto.id());
     }
 
+    @Disabled("댓글 기능이 추가되면 활성화되는 테스트 - 현재 비즈니스 로직만 보여주고 있음")
     @DisplayName("없는 댓글 정보를 수정하려고 하면, 경고 로그를 찍고 아무 것도 안 한다.")
     @Test
     void givenNonexistentArticleComment_whenUpdatingArticleComment_thenLogsWarningAndDoesNothing() {
