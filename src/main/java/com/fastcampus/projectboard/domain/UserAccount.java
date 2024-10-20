@@ -17,7 +17,6 @@ import java.util.Objects;
 @Getter
 @ToString
 @Table(indexes = {
-        @Index(columnList = "userLogin"),
         @Index(columnList = "email", unique = true),
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
@@ -26,11 +25,11 @@ import java.util.Objects;
 
 public class UserAccount extends AuditingFields {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Setter @Column(nullable = false) private String userLogin; // TODO 추후 필드 명을 userLogin을 userId로 변경하고 PK로 변경할 때 수정할 예정
+    @Id
+    @Column(length = 50)
+    private String userId;
+
     @Setter @Column(nullable = false) private String userPassword;
 
     @Setter private String email;
@@ -40,16 +39,16 @@ public class UserAccount extends AuditingFields {
   
     protected UserAccount() {}
 
-    private UserAccount(String userLogin, String userPassword, String email, String nickname, String memo) {
-        this.userLogin = userLogin;
+    private UserAccount(String userId, String userPassword, String email, String nickname, String memo) {
+        this.userId = userId;
         this.userPassword = userPassword;
         this.email = email;
         this.nickname = nickname;
         this.memo = memo;
     }
 
-    public static UserAccount of(String userLogin, String userPassword, String email, String nickname, String memo) {
-        return new UserAccount(userLogin, userPassword, email, nickname, memo);
+    public static UserAccount of(String userId, String userPassword, String email, String nickname, String memo) {
+        return new UserAccount(userId, userPassword, email, nickname, memo);
     }
 
   
@@ -58,24 +57,23 @@ public class UserAccount extends AuditingFields {
         if (this == o) return true;
         if (!(o instanceof UserAccount that)) return false;
 
-        if (this.getId() == null) {
-            return Objects.equals(this.getUserLogin(), that.getUserLogin()) &&
-                    Objects.equals(this.getUserPassword(), that.getUserPassword()) &&
+        if (this.getUserId() == null) {
+            return Objects.equals(this.getUserPassword(), that.getUserPassword()) &&
                     Objects.equals(this.getEmail(), that.getEmail()) &&
                     Objects.equals(this.getNickname(), that.getNickname()) &&
                     Objects.equals(this.getMemo(), that.getMemo()) &&
                     super.equals(that);
         }
 
-        return Objects.equals(this.getId(), that.getId());
+        return Objects.equals(this.getUserId(), that.getUserId());
     }
 
     @Override
     public int hashCode() {
-        if (this.getId() == null) {
-            return Objects.hash(getUserLogin(), getUserPassword(), getEmail(), getNickname(), getMemo()) + super.hashCode();
+        if (this.getUserId() == null) {
+            return Objects.hash(getUserPassword(), getEmail(), getNickname(), getMemo()) + super.hashCode();
         }
 
-        return Objects.hash(getId());
+        return Objects.hash(getUserId());
     }
 }
