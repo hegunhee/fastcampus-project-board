@@ -53,19 +53,6 @@ class ArticleControllerTest {
     }
 
     @Disabled("구현 중")
-    @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
-    @Test
-    public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
-        // Given
-
-        // When & Then
-        mvc.perform(get("/articles/search"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("articles/search"));
-    }
-
-    @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 해시태그 검색 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleHashtagSearchView_thenReturnsArticleHashtagSearchView() throws Exception {
