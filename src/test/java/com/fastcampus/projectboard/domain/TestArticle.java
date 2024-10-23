@@ -42,10 +42,6 @@ public class TestArticle extends AuditingFields {
         return Objects.hash(getTitle(), getContent(), getHashtag()) + super.hashCode();
     }
 
-    public int nestedHashcode() {
-        return Objects.hash(getTitle(), getContent(), getHashtag(), super.hashCode());
-    }
-
     @Override
     public String toString() {
         return "TestArticle{" +
