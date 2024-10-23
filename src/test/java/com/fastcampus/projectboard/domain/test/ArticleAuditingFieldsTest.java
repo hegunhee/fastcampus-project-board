@@ -27,8 +27,9 @@ public class ArticleAuditingFieldsTest {
     @Test
     void givenTestArticles_whenDistinct_thenNotDuplication() {
         // given & when
-        int fiveArticlesSize = getDiffFiveArticles().size();
-        Set<TestArticle> testArticles = new HashSet<>(getDiffFiveArticles());
+        List<TestArticle> articles = getDiffFiveArticles();
+        int fiveArticlesSize = articles.size();
+        Set<TestArticle> testArticles = new HashSet<>(articles);
 
         // then
         assertThat(fiveArticlesSize).isEqualTo(testArticles.size());
