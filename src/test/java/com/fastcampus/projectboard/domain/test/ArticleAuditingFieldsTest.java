@@ -27,7 +27,7 @@ public class ArticleAuditingFieldsTest {
     @Test
     void givenTestArticles_whenDistinct_thenNotDuplication() {
         // given & when
-        List<TestArticle> articles = getDiffFiveArticles();
+        List<TestArticle> articles = createDiffFiveArticles();
         int fiveArticlesSize = articles.size();
         Set<TestArticle> testArticles = new HashSet<>(articles);
 
@@ -39,8 +39,8 @@ public class ArticleAuditingFieldsTest {
     @Test
     void givenTwoSameTestArticle_when_thenSameTestArticle() {
         // given
-        TestArticle testArticle1 = getTestArticleDiff(1);
-        TestArticle testArticle2 = getTestArticleDiff(1);
+        TestArticle testArticle1 = createTestArticleWithOffset(1);
+        TestArticle testArticle2 = createTestArticleWithOffset(1);
 
         // when & then
         assertThat(testArticle1).isEqualTo(testArticle2);
@@ -51,8 +51,8 @@ public class ArticleAuditingFieldsTest {
     @Test
     void givenTwoSameAuditingFieldTestArticle_when_thenDiffTestArticle() {
         // given
-        TestArticle testArticle1 = getTestArticleAuditingFieldDiff(1);
-        TestArticle testArticle2 = getTestArticleAuditingFieldDiff(2);
+        TestArticle testArticle1 = createTestArticleWithOffsetAuditingFields(1);
+        TestArticle testArticle2 = createTestArticleWithOffsetAuditingFields(2);
         // when
 
         // then
@@ -64,7 +64,7 @@ public class ArticleAuditingFieldsTest {
     @Test
     void givenTestArticle_whenCalculateHashcode_thenDiffHashcode() {
         // given
-        TestArticle testArticle1 = getTestArticleDiff(1);
+        TestArticle testArticle1 = createTestArticleWithOffset(1);
 
         // when
         int hashcode = testArticle1.hashCode();
@@ -76,20 +76,20 @@ public class ArticleAuditingFieldsTest {
         assertThat(hashcode).isNotEqualTo(nestedHashcode);
     }
 
-    private List<TestArticle> getDiffFiveArticles() {
+    private List<TestArticle> createDiffFiveArticles() {
         List<TestArticle> result = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            TestArticle testArticle = getTestArticleDiff(i);
+            TestArticle testArticle = createTestArticleWithOffset(i);
             result.add(testArticle);
         }
         return result;
     }
 
-    private TestArticle getTestArticleDiff(int number) {
+    private TestArticle createTestArticleWithOffset(int number) {
         return TestArticle.of(now.plusMinutes(number), "createdName" + number, now.plusMinutes(modifiedTime + number), "modifiedName" + number, "title" + number, "content" + number, "hashtag" + number);
     }
 
-    private TestArticle getTestArticleAuditingFieldDiff(int number) {
+    private TestArticle createTestArticleWithOffsetAuditingFields(int number) {
         return TestArticle.of(now.plusMinutes(number), "createdName" + number, now.plusMinutes(modifiedTime + number), "modifiedName" + number, "title", "content", "hashtag");
     }
 
