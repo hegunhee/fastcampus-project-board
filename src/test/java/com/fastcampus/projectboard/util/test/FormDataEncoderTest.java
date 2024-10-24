@@ -45,15 +45,17 @@ class FormDataEncoderTest {
 
         // Then
         assertThat(result).isEqualTo(
-                "str=This%20'is'%20%22test%22%20string." +
-                        "&listStr1=%5Bhello,my,friend%5D" +
-                        "&listStr2=hello,my,friend" +
-                        "&nullStr" +
-                        "&number=1234" +
-                        "&floatingNumber=3.14" +
-                        "&bool=false" +
-                        "&bigDecimal=10" +
-                        "&testEnum=THREE"
+                """
+                    str=This%20'is'%20%22test%22%20string.
+                    &listStr1=%5Bhello,my,friend%5D
+                    &listStr2=hello,my,friend
+                    &nullStr
+                    &number=1234
+                    &floatingNumber=3.14
+                    &bool=false
+                    &bigDecimal=10
+                    &testEnum=THREE
+                    """.replace("\n", "") // 자동 줄 띄우기 삭제 만약 인코딩 내용에 줄 띄우기가 포함된다면 replace 대신 다른 방법을 사용해야함
         );
     }
 
