@@ -18,6 +18,7 @@ public class TestContainerConfig {
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.driver-class-name",mysqlContainer::getDriverClassName);
         registry.add("spring.datasource.url", mysqlContainer::getJdbcUrl);
         registry.add("spring.datasource.username", mysqlContainer::getUsername);
         registry.add("spring.datasource.password", mysqlContainer::getPassword);
