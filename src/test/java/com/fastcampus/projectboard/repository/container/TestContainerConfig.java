@@ -13,7 +13,7 @@ public class TestContainerConfig {
     @Container
     private static final MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0")
             .withDatabaseName("board")
-            .withUsername("hegunhee")
+            .withUsername("gunhee")
             .withPassword("0072");
 
     @DynamicPropertySource
