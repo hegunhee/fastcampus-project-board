@@ -3,7 +3,6 @@ package com.fastcampus.projectboard.repository;
 import com.fastcampus.projectboard.config.JpaConfig;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.UserAccount;
-import com.fastcampus.projectboard.repository.container.TestContainerConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,6 @@ class JpaRepositoryTest {
     @Nested
     @DisplayName("실제 DB 테스트")
     @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-    @Import(TestContainerConfig.class)
     class ActualDBTest extends DBTest {
 
         public ActualDBTest(
