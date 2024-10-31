@@ -30,7 +30,7 @@ public class UserAccount extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter @Column(nullable = false) private String userLogin;
+    @Setter @Column(nullable = false) private String userLogin; // TODO 추후 필드 명을 userLogin을 userId로 변경하고 PK로 변경할 때 수정할 예정
     @Setter @Column(nullable = false) private String userPassword;
 
     @Setter private String email;

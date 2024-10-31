@@ -27,8 +27,8 @@ public class Article extends AuditingFields {
 
     @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
 
-    @Column(nullable = false) private String title;
-    @Column(nullable = false, length = 10000) private String content;
+    @Setter @Column(nullable = false) private String title;
+    @Setter @Column(nullable = false, length = 10000) private String content;
     @Setter private String hashtag;
 
     @ToString.Exclude
