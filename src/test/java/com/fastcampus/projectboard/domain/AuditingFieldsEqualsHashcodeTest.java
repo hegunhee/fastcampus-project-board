@@ -3,7 +3,6 @@ package com.fastcampus.projectboard.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,21 +72,13 @@ public class AuditingFieldsEqualsHashcodeTest {
 
     private Article createArticleWithOffset(int number) {
         Article result = Article.of(dummyUserAccount, "title" + number, "content" + number, "hashcode" + number);
-        initEntityAuditingFieldsWithOffset(result, number);
+        AuditingFieldReflectionHelper.setAuditingFieldsWithOffset(result,number,now);
         return result;
     }
 
     private Article createArticleWithOffsetAuditingFields(int number) {
         Article result = Article.of(dummyUserAccount, "title", "content", "hashcode");
-        initEntityAuditingFieldsWithOffset(result, number);
+        AuditingFieldReflectionHelper.setAuditingFieldsWithOffset(result,number,now);
         return result;
-    }
-
-    void initEntityAuditingFieldsWithOffset(Article entity, int number) {
-        ReflectionTestUtils.setField(entity, "createdAt", now.plusMinutes(number));
-        ReflectionTestUtils.setField(entity, "createdBy", "createdBy" + number);
-        int modifiedAddMinute = 3;
-        ReflectionTestUtils.setField(entity, "modifiedAt", now.plusMinutes(modifiedAddMinute + number));
-        ReflectionTestUtils.setField(entity, "modifiedBy", "modifiedBy" + number);
     }
 }
