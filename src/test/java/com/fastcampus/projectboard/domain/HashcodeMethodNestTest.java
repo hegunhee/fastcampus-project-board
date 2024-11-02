@@ -24,7 +24,7 @@ public class HashcodeMethodNestTest {
     void givenTestArticleHashcode_whenCalculateHashcodeAgain_thenDifferentHashcode() {
         // Given
         Article article = Article.of(null, "title", "content", "hashtag");
-        AuditingFieldReflectionHelper.setAuditingFieldsWithOffset(article, 3, now);
+        AuditingFieldsReflectionHelper.setAuditingFieldsWithOffset(article, 3, now);
         int hashcode = article.hashCode();
 
         // When

@@ -4,9 +4,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
 
-class AuditingFieldReflectionHelper {
+class AuditingFieldsReflectionHelper {
 
-    private AuditingFieldReflectionHelper() {
+    private AuditingFieldsReflectionHelper() {
 
     }
 

@@ -72,13 +72,13 @@ public class AuditingFieldsEqualsHashcodeTest {
 
     private Article createArticleWithOffset(int number) {
         Article result = Article.of(dummyUserAccount, "title" + number, "content" + number, "hashcode" + number);
-        AuditingFieldReflectionHelper.setAuditingFieldsWithOffset(result,number,now);
+        AuditingFieldsReflectionHelper.setAuditingFieldsWithOffset(result,number,now);
         return result;
     }
 
     private Article createArticleWithOffsetAuditingFields(int number) {
         Article result = Article.of(dummyUserAccount, "title", "content", "hashcode");
-        AuditingFieldReflectionHelper.setAuditingFieldsWithOffset(result,number,now);
+        AuditingFieldsReflectionHelper.setAuditingFieldsWithOffset(result,number,now);
         return result;
     }
 }
