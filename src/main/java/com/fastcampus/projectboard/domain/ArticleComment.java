@@ -1,16 +1,10 @@
 package com.fastcampus.projectboard.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
@@ -25,7 +19,11 @@ public class ArticleComment extends AuditingFields{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(optional = false) private Article article;
-    @ManyToOne(optional = false) private UserAccount userAccount; // 유저 정보 (ID)
+
+    @Setter
+    @JoinColumn(name = "userId")
+    @ManyToOne(optional = false)
+    private UserAccount userAccount;
 
     @Column(nullable = false,length = 500) private String content;
 
