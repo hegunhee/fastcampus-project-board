@@ -39,14 +39,14 @@ class ArticleServiceTest {
     void givenNoSearchParameters_whenSearchingArticles_thenReturnsArticlePage() {
         // Given
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findAll(pageable)).willReturn(Page.empty());
+        given(articleRepository.findBySearchKeyword(null, null, pageable)).willReturn(Page.empty());
 
         // When
         Page<ArticleDto> articles = sut.searchArticles(null, null, pageable);
 
         // Then
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findAll(pageable);
+        then(articleRepository).should().findBySearchKeyword(null, null, pageable);
     }
 
     @DisplayName("검색어와 함께 게시글을 검색하면, 게시글 페이지를 반환한다.")
@@ -56,14 +56,14 @@ class ArticleServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "title";
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
+        given(articleRepository.findBySearchKeyword(searchType, searchKeyword, pageable)).willReturn(Page.empty());
 
         // When
         Page<ArticleDto> articles = sut.searchArticles(searchType, searchKeyword, pageable);
 
         // Then
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
+        then(articleRepository).should().findBySearchKeyword(searchType, searchKeyword, pageable);
     }
 
     @DisplayName("검색어 없이 게시글을 해시태그 검색하면, 빈 페이지를 반환한다.")
