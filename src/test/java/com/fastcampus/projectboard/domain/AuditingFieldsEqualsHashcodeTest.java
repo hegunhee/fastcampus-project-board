@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.fastcampus.projectboard.domain.AuditingFieldsReflectionHelper.setAuditingFields;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("[AuditingField] AuditingFields equals hashcode 메서드 테스트")
@@ -70,13 +71,13 @@ public class AuditingFieldsEqualsHashcodeTest {
 
     private Article createArticleWithOffset(int number) {
         Article result = Article.of(null, "title" + number, "content" + number, "hashcode" + number);
-        AuditingFieldsReflectionHelper.setAuditingFields(result,number,now);
+        setAuditingFields(result,number,now);
         return result;
     }
 
     private Article createArticleWithOffsetAuditingFields(int number) {
         Article result = Article.of(null, "title", "content", "hashcode");
-        AuditingFieldsReflectionHelper.setAuditingFields(result,number,now);
+        setAuditingFields(result,number,now);
         return result;
     }
 }

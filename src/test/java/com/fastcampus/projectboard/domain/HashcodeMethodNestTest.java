@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static com.fastcampus.projectboard.domain.AuditingFieldsReflectionHelper.setAuditingFields;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Objects.hash 함수의 중첩 호출여부에 따라 값이 달라짐을 보여주는 테스트")
@@ -24,7 +25,7 @@ public class HashcodeMethodNestTest {
     void givenTestArticleHashcode_whenCalculateHashcodeAgain_thenDifferentHashcode() {
         // Given
         Article article = Article.of(null, "title", "content", "hashtag");
-        AuditingFieldsReflectionHelper.setAuditingFields(article, 3, now);
+        setAuditingFields(article, 3, now);
         int hashcode = article.hashCode();
 
         // When
