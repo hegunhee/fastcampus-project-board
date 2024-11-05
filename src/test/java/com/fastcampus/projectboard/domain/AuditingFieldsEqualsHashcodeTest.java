@@ -62,19 +62,6 @@ public class AuditingFieldsEqualsHashcodeTest {
         );
     }
 
-    @DisplayName("AuditingField만 다른 2개의 객체 중복 비교")
-    @Test
-    void givenTwoSameAuditingFieldArticle_when_thenDifferentArticle() {
-        // given
-        Article article1 = createArticleWithOffsetAuditingFields(1);
-        Article article2 = createArticleWithOffsetAuditingFields(2);
-        // when
-
-        // then
-        assertThat(article1).isNotEqualTo(article2);
-        assertThat(article1.hashCode()).isNotEqualTo(article2.hashCode());
-    }
-
     List<Article> createDiffFiveArticles() {
         List<Article> result = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -85,14 +72,8 @@ public class AuditingFieldsEqualsHashcodeTest {
     }
 
     private Article createArticleWithOffset(int number) {
-        Article result = Article.of(null, "title" + number, "content" + number, "hashcode" + number);
-        setAuditingFields(result,number,now);
-        return result;
-    }
-
-    private Article createArticleWithOffsetAuditingFields(int number) {
         Article result = Article.of(null, "title", "content", "hashcode");
-        setAuditingFields(result,number,now);
+        setAuditingFields(result, number, now);
         return result;
     }
 }
