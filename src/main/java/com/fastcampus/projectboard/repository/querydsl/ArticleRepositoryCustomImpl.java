@@ -63,6 +63,6 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
             case ID		-> article.userAccount.userId.contains(searchKeyword);
             case NICKNAME	-> article.userAccount.nickname.contains(searchKeyword);
             case HASHTAG	-> article.hashtag.eq(searchKeyword);
-        }
+        };
     }
 }
