@@ -11,9 +11,12 @@ class AuditingFieldsReflectionHelper {
     }
 
     static void setAuditingFields(AuditingFields entity, int offset, LocalDateTime localDateTime) {
+        setAuditingFields(entity, offset, localDateTime, 3);
+    }
+
+    static void setAuditingFields(AuditingFields entity, int offset, LocalDateTime localDateTime, int modifiedAddMinute) {
         ReflectionTestUtils.setField(entity, "createdAt", localDateTime.plusMinutes(offset));
         ReflectionTestUtils.setField(entity, "createdBy", "createdBy" + offset);
-        int modifiedAddMinute = 3;
         ReflectionTestUtils.setField(entity, "modifiedAt", localDateTime.plusMinutes(modifiedAddMinute + offset));
         ReflectionTestUtils.setField(entity, "modifiedBy", "modifiedBy" + offset);
     }
