@@ -44,7 +44,7 @@ public class AuditingFieldsEqualsHashcodeTest {
     void givenSameOffsetArticles_whenDistinct_thenRemoveDuplicate() {
         // Given & When
         int offset = 5;
-        List<Article> articles = List.of(createArticleWithOffset(offset), createArticleWithOffset(offset), createArticleWithOffset(offset));
+        List<Article> articles = List.of(createArticle(offset), createArticle(offset), createArticle(offset));
         Set<Article> removeDuplicationArticles = new HashSet<>(articles);
 
         // Then
@@ -57,8 +57,8 @@ public class AuditingFieldsEqualsHashcodeTest {
     @ParameterizedTest(name = "현재 offset {0}")
     void givenTwoSameArticle_when_thenSameArticle(int offset) {
         // given
-        Article article1 = createArticleWithOffset(offset);
-        Article article2 = createArticleWithOffset(offset);
+        Article article1 = createArticle(offset);
+        Article article2 = createArticle(offset);
 
         // when & then
         assertThat(article1).isEqualTo(article2);
@@ -78,15 +78,15 @@ public class AuditingFieldsEqualsHashcodeTest {
     List<Article> createDiffFiveArticles() {
         List<Article> result = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            Article article = createArticleWithOffset(i);
+            Article article = createArticle(i);
             result.add(article);
         }
         return result;
     }
 
-    private Article createArticleWithOffset(int number) {
+    private Article createArticle(int offset) {
         Article result = Article.of(null, "title", "content", "hashcode");
-        setAuditingFields(result, number, now);
+        setAuditingFields(result, offset, now);
         return result;
     }
 }
