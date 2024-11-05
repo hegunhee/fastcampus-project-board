@@ -3,9 +3,7 @@ package com.fastcampus.projectboard.repository.querydsl;
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.QArticle;
 import com.fastcampus.projectboard.domain.type.SearchType;
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -35,18 +33,14 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
     public Page<Article> findBySearchKeyword(SearchType searchType, String searchKeyword, Pageable pageable) {
         QArticle article = QArticle.article;
 
-        Predicate searchTypePredicate = getPredicateBy(searchType, searchKeyword, article);
-
         List<Article> contents = from(article)
-                .select(article)
-                .where(searchTypePredicate)
+                .where(getPredicateBy(searchType, searchKeyword, article))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
         long count = from(article)
-                .select()
-                .where(searchTypePredicate)
+                .where(getPredicateBy(searchType, searchKeyword, article))
                 .fetchCount();
 
         return new PageImpl<>(contents, pageable, count);
