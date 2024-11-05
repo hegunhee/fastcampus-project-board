@@ -10,7 +10,7 @@ class AuditingFieldsReflectionHelper {
 
     }
 
-    static void setAuditingFieldsWithOffset(AuditingFields entity, int offset, LocalDateTime localDateTime) {
+    static void setAuditingFields(AuditingFields entity, int offset, LocalDateTime localDateTime) {
         ReflectionTestUtils.setField(entity, "createdAt", localDateTime.plusMinutes(offset));
         ReflectionTestUtils.setField(entity, "createdBy", "createdBy" + offset);
         int modifiedAddMinute = 3;
