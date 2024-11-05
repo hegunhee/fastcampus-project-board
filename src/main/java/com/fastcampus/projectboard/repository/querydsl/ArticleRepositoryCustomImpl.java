@@ -53,18 +53,16 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
     }
 
     private Predicate getPredicateBy(SearchType searchType, String searchKeyword, QArticle article) {
-        if (searchKeyword == null || searchKeyword.isBlank()) {
+        if (searchType == null || searchKeyword == null || searchKeyword.isBlank()) {
             return null;
         }
 
-        Predicate result = null;
-        switch (searchType) {
-            case TITLE -> result = article.title.contains(searchKeyword);
-            case CONTENT -> result = article.content.contains(searchKeyword);
-            case ID -> result = article.userAccount.userId.contains(searchKeyword);
-            case NICKNAME -> result = article.userAccount.nickname.contains(searchKeyword);
-            case HASHTAG -> result = article.hashtag.eq(searchKeyword);
+        return switch (searchType) {
+            case TITLE		-> article.title.contains(searchKeyword);
+            case CONTENT	-> article.content.contains(searchKeyword);
+            case ID		-> article.userAccount.userId.contains(searchKeyword);
+            case NICKNAME	-> article.userAccount.nickname.contains(searchKeyword);
+            case HASHTAG	-> article.hashtag.eq(searchKeyword);
         }
-        return result;
     }
 }
