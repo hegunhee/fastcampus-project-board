@@ -28,11 +28,10 @@ public class AuditingFieldsEqualsHashcodeTest {
     void givenArticles_whenDistinct_thenNotDuplication() {
         // given & when
         List<Article> articles = createDiffFiveArticles();
-        int fiveArticlesSize = articles.size();
         Set<Article> removeDuplicationArticle = new HashSet<>(articles);
 
         // then
-        assertThat(fiveArticlesSize).isEqualTo(removeDuplicationArticle.size());
+        assertThat(articles.size()).isEqualTo(removeDuplicationArticle.size());
     }
 
     @DisplayName("모든 필드값이 같은 2개의 객체 중복 비교")
