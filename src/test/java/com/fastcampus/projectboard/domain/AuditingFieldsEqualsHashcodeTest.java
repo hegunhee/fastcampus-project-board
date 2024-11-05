@@ -39,6 +39,19 @@ public class AuditingFieldsEqualsHashcodeTest {
         assertThat(articles.size()).isEqualTo(removeDuplicationArticle.size());
     }
 
+    @DisplayName("리스트에 모든 객체가 중복일 때 객체 중복 비교")
+    @Test
+    void givenSameOffsetArticles_whenDistinct_thenRemoveDuplicate() {
+        // Given & When
+        int offset = 5;
+        List<Article> articles = List.of(createArticleWithOffset(offset), createArticleWithOffset(offset), createArticleWithOffset(offset));
+        Set<Article> removeDuplicationArticles = new HashSet<>(articles);
+
+        // Then
+        assertThat(articles.size()).isNotEqualTo(removeDuplicationArticles.size());
+        assertThat(1).isEqualTo(removeDuplicationArticles.size());
+    }
+
     @DisplayName("모든 필드값이 같은 2개의 객체 중복 비교")
     @MethodSource
     @ParameterizedTest(name = "현재 offset {0}")
