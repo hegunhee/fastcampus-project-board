@@ -38,6 +38,10 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
 
         List<Article> contents = getQuerydsl().applyPagination(pageable, from(article).where(getPredicateBy(searchType, searchKeyword, article))).fetch();
 
+        if(pageable.getPageSize() <= contents.size()) {
+            return new PageImpl<>(contents, pageable, contents.size());
+        }
+
         long count = from(article)
                 .where(getPredicateBy(searchType, searchKeyword, article))
                 .fetchCount();
