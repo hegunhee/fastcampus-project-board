@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -31,13 +32,11 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
 
     @Override
     public Page<Article> findBySearchKeyword(SearchType searchType, String searchKeyword, Pageable pageable) {
+        Assert.notNull(getQuerydsl(),"getQuerydsl must not be null");
+
         QArticle article = QArticle.article;
 
-        List<Article> contents = from(article)
-                .where(getPredicateBy(searchType, searchKeyword, article))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+        List<Article> contents = getQuerydsl().applyPagination(pageable, from(article).where(getPredicateBy(searchType, searchKeyword, article))).fetch();
 
         long count = from(article)
                 .where(getPredicateBy(searchType, searchKeyword, article))
