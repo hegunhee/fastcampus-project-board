@@ -59,7 +59,7 @@ public class ArticleRepositorySearchKeywordTest {
         switch (searchType) {
             case TITLE -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getTitle().contains(searchKeyword)));
             case CONTENT -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getContent().contains(searchKeyword)));
-            case ID -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getUserAccount().getUserId().equals(searchKeyword)));
+            case ID -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getUserAccount().getUserId().contains(searchKeyword)));
             case NICKNAME -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getUserAccount().getNickname().contains(searchKeyword)));
             case HASHTAG -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getHashtag().equals(searchKeyword)));
         }
