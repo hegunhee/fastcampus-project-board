@@ -49,8 +49,10 @@ public class ArticleRepositorySearchKeywordTest {
     @MethodSource
     @ParameterizedTest(name = "[{0}] 현재 키워드: {1}")
     void givenSearchTypeAndSearchKeyword_whenGetSearchKeywordArticles_thenResultContainsKeyword(SearchType searchType, String searchKeyword) {
-        // Given & When
+        // Given
         Pageable pageable = PageRequest.ofSize(20);
+
+        // When
         Page<Article> articles = articleRepository.findBySearchKeyword(searchType, searchKeyword, pageable);
 
         // Then
