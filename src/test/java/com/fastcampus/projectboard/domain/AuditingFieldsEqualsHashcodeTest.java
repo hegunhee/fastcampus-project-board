@@ -86,7 +86,7 @@ public class AuditingFieldsEqualsHashcodeTest {
 
     private Article createArticle(int offset) {
         Article result = Article.of(null, "title", "content", "hashcode");
-        setAuditingFields(result, offset, now);
+        setAuditingFields(result, now.plusMinutes(offset),offset * 2);
         return result;
     }
 }
