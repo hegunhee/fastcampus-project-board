@@ -75,7 +75,7 @@ public class AuditingFieldsEqualsHashcodeTest {
         );
     }
 
-    List<Article> createDiffFiveArticles() {
+    private List<Article> createDiffFiveArticles() {
         List<Article> result = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             Article article = createArticle(i);
