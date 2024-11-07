@@ -2,8 +2,6 @@ package com.fastcampus.projectboard.repository;
 
 import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.type.SearchType;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -57,11 +55,11 @@ public class ArticleRepositorySearchKeywordTest {
 
         // Then
         switch (searchType) {
-            case TITLE -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getTitle().contains(searchKeyword)));
-            case CONTENT -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getContent().contains(searchKeyword)));
-            case ID -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getUserAccount().getUserId().contains(searchKeyword)));
-            case NICKNAME -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getUserAccount().getNickname().contains(searchKeyword)));
-            case HASHTAG -> Assertions.assertTrue(articles.stream().allMatch(article -> article.getHashtag().equals(searchKeyword)));
+            case TITLE -> assertThat(articles).allMatch(article -> article.getTitle().contains(searchKeyword));
+            case CONTENT -> assertThat(articles).allMatch(article -> article.getContent().contains(searchKeyword));
+            case ID -> assertThat(articles).allMatch(article -> article.getUserAccount().getUserId().contains(searchKeyword));
+            case NICKNAME -> assertThat(articles).allMatch(article -> article.getUserAccount().getNickname().contains(searchKeyword));
+            case HASHTAG -> assertThat(articles).allMatch(article -> article.getHashtag().equals(searchKeyword));
         }
     }
 
