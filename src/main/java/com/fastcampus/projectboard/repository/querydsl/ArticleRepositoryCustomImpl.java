@@ -35,7 +35,7 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
 
     @Override
     public Page<Article> findBySearchKeyword(SearchType searchType, String searchKeyword, Pageable pageable) {
-        Assert.notNull(getQuerydsl(),"getQuerydsl must not be null");
+        Assert.notNull(getQuerydsl(), "getQuerydsl must not be null");
 
         QArticle article = QArticle.article;
 
@@ -45,7 +45,7 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
                 .select(article.count())
                 .where(getPredicateBy(searchType, searchKeyword, article));
 
-        return getPage(contents,pageable,count::fetchOne);
+        return getPage(contents, pageable, count::fetchOne);
     }
 
     private Predicate getPredicateBy(SearchType searchType, String searchKeyword, QArticle article) {
