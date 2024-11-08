@@ -4,13 +4,16 @@ import com.fastcampus.projectboard.domain.Article;
 import com.fastcampus.projectboard.domain.QArticle;
 import com.fastcampus.projectboard.domain.type.SearchType;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.Assert;
 
 import java.util.List;
+
+import static org.springframework.data.support.PageableExecutionUtils.getPage;
 
 public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
 
@@ -38,15 +41,11 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
 
         List<Article> contents = getQuerydsl().applyPagination(pageable, from(article).where(getPredicateBy(searchType, searchKeyword, article))).fetch();
 
-        if(pageable.getPageSize() <= contents.size()) {
-            return new PageImpl<>(contents, pageable, contents.size());
-        }
+        JPQLQuery<Long> count = from(article)
+                .select(article.count())
+                .where(getPredicateBy(searchType, searchKeyword, article));
 
-        long count = from(article)
-                .where(getPredicateBy(searchType, searchKeyword, article))
-                .fetchCount();
-
-        return new PageImpl<>(contents, pageable, count);
+        return getPage(contents,pageable,count::fetchOne);
     }
 
     private Predicate getPredicateBy(SearchType searchType, String searchKeyword, QArticle article) {
