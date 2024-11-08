@@ -54,8 +54,7 @@ public class AuditingFieldsEqualsHashcodeTest {
     @RepeatedTest(10)
     void givenTwoSameArticle_when_thenSameArticle() {
         // given
-        RandomGenerator randomGenerator = RandomGeneratorFactory.getDefault().create();
-        int offset = randomGenerator.nextInt(100);
+        int offset = RandomGenerator.getDefault().nextInt(100);
         Article article1 = createArticle(offset);
         Article article2 = createArticle(offset);
 
