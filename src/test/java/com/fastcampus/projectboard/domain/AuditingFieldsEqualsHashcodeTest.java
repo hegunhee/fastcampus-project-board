@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.random.RandomGenerator;
+import java.util.random.RandomGeneratorFactory;
 
 import static com.fastcampus.projectboard.domain.AuditingFieldsReflectionHelper.setAuditingFields;
 import static org.assertj.core.api.Assertions.assertThat;
