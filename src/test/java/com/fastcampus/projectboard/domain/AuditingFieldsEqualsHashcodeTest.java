@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Random;
 
 import static com.fastcampus.projectboard.domain.AuditingFieldsReflectionHelper.setAuditingFields;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +52,8 @@ public class AuditingFieldsEqualsHashcodeTest {
     @RepeatedTest(10)
     void givenTwoSameArticle_when_thenSameArticle() {
         // given
-        int offset = new Random().nextInt(100);
+        RandomGenerator randomGenerator = RandomGeneratorFactory.getDefault().create();
+        int offset = randomGenerator.nextInt(100);
         Article article1 = createArticle(offset);
         Article article2 = createArticle(offset);
 
