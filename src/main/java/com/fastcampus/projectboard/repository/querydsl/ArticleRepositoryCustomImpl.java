@@ -38,13 +38,8 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
 
         QArticle article = QArticle.article;
 
-        List<Article> contents = getQuerydsl().applyPagination(pageable, from(article).where(getPredicateBy(searchType, searchKeyword, article))).fetch();
-
-        JPQLQuery<Long> count = from(article)
-                .select(article.count())
-                .where(getPredicateBy(searchType, searchKeyword, article));
-
-        return getPage(contents, pageable, count::fetchOne);
+        JPQLQuery<Article> contentsQuery = getQuerydsl().applyPagination(pageable, from(article).where(getPredicateBy(searchType, searchKeyword, article)));
+        return getPage(contentsQuery.fetch(), pageable, contentsQuery::fetchCount);
     }
 
     private Predicate getPredicateBy(SearchType searchType, String searchKeyword, QArticle article) {
