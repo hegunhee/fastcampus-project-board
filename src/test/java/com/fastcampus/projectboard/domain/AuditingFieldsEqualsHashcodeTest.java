@@ -1,0 +1,80 @@
+package com.fastcampus.projectboard.domain;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.random.RandomGenerator;
+import java.util.random.RandomGeneratorFactory;
+
+import static com.fastcampus.projectboard.domain.AuditingFieldsReflectionHelper.setAuditingFields;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DisplayName("[AuditingField] AuditingFields equals hashcode 메서드 테스트")
+public class AuditingFieldsEqualsHashcodeTest {
+
+    private LocalDateTime now;
+
+    @BeforeEach
+    void timeInit() {
+        now = LocalDateTime.now();
+    }
+
+    @DisplayName("서로다른 5개의 객체 중복 비교")
+    @Test
+    void givenArticles_whenDistinct_thenNotDuplication() {
+        // given & when
+        List<Article> articles = createDiffFiveArticles();
+        Set<Article> removeDuplicationArticle = new HashSet<>(articles);
+
+        // then
+        assertThat(articles.size()).isEqualTo(removeDuplicationArticle.size());
+    }
+
+    @DisplayName("리스트에 모든 객체가 중복일 때 객체 중복 비교")
+    @Test
+    void givenSameOffsetArticles_whenDistinct_thenRemoveDuplicate() {
+        // Given & When
+        int offset = 5;
+        List<Article> articles = List.of(createArticle(offset), createArticle(offset), createArticle(offset));
+        Set<Article> removeDuplicationArticles = new HashSet<>(articles);
+
+        // Then
+        assertThat(articles.size()).isNotEqualTo(removeDuplicationArticles.size());
+        assertThat(1).isEqualTo(removeDuplicationArticles.size());
+    }
+
+    @DisplayName("모든 필드값이 같은 2개의 객체 중복 비교")
+    @RepeatedTest(10)
+    void givenTwoSameArticle_when_thenSameArticle() {
+        // given
+        int offset = RandomGenerator.getDefault().nextInt(100);
+        Article article1 = createArticle(offset);
+        Article article2 = createArticle(offset);
+
+        // when & then
+        assertThat(article1).isEqualTo(article2);
+        assertThat(article1.hashCode()).isEqualTo(article2.hashCode());
+    }
+
+    private List<Article> createDiffFiveArticles() {
+        List<Article> result = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            Article article = createArticle(i);
+            result.add(article);
+        }
+        return result;
+    }
+
+    private Article createArticle(int offset) {
+        Article result = Article.of(null, "title", "content", "hashcode");
+        setAuditingFields(result, now.plusMinutes(offset),offset * 2);
+        return result;
+    }
+}
